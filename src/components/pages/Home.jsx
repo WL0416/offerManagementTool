@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
-const Home = props => {
+const Home = () => {
   return (
     <div id="homepage">
       <Link to="/newton" className="home-button">
