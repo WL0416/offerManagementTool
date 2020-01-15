@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Container, Col, Form, Button } from "react-bootstrap";
 import "../../App.css";
+import axios from "axios";
 
 class NewOffer extends Component {
   state = {
@@ -31,6 +32,8 @@ class NewOffer extends Component {
       }));
     }
   };
+
+  handleSubmit = () => {};
 
   render() {
     const { college, allcourses } = this.props;
