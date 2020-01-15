@@ -167,7 +167,7 @@ class NewOffer extends Component {
             </Form.Group>
           </Form.Row>
 
-          <Button variant="primary" type="submit" block>
+          <Button variant="primary" type="submit" size="lg">
             Generate
           </Button>
         </Form>
