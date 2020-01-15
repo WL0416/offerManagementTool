@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Col, Form, Button } from "react-bootstrap";
 import "../../App.css";
 
 class NewOffer extends Component {
@@ -24,7 +24,7 @@ class NewOffer extends Component {
   removeCourse = () => {
     let courses = [...this.state.courseList];
     const max_index = courses.length - 1;
-    if (courses.length !== 0) {
+    if (courses.length > 1) {
       courses.splice(max_index, 1);
       this.setState(() => ({
         courseList: courses
@@ -35,6 +35,11 @@ class NewOffer extends Component {
   render() {
     const { college, allcourses } = this.props;
     let { courseList } = this.state;
+
+    let deleteDisable = true;
+    if (courseList.length > 1) {
+      deleteDisable = false;
+    }
 
     return (
       <Container className="application">
@@ -92,9 +97,10 @@ class NewOffer extends Component {
             Add Course
           </Button>
           <Button
-            variant="success"
+            variant="danger"
             onClick={this.removeCourse}
             className="btn-space"
+            disabled={deleteDisable}
           >
             Remove Course
           </Button>
@@ -125,7 +131,7 @@ class NewOffer extends Component {
           })}
 
           <Form.Row>
-            <fieldset>
+            {/* <fieldset>
               <Form.Group as={Row}>
                 <Form.Label as="legend" column sm={2}>
                   Visa
@@ -145,7 +151,7 @@ class NewOffer extends Component {
                   />
                 </Col>
               </Form.Group>
-            </fieldset>
+            </fieldset> */}
 
             <Form.Group as={Col} controlId="formGridEnroll">
               <Form.Label>Enrollment Fee</Form.Label>
