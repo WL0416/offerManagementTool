@@ -1,29 +1,45 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import "../../App.css";
 
-class NewtonOffer extends Component {
+class NewOffer extends Component {
+  state = {
+    // the list of courses which is used to dynamicly add
+    courseList: [{ course: "", intake: "", duration: "" }]
+  };
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
 
+  addCourse = () => {
+    this.setState(preState => ({
+      courseList: [
+        ...preState.courseList,
+        { course: "", intake: "", duration: "" }
+      ]
+    }));
+  };
+
+  removeCourse = () => {
+    let courses = [...this.state.courseList];
+    const max_index = courses.length - 1;
+    if (courses.length !== 0) {
+      courses.splice(max_index, 1);
+      this.setState(() => ({
+        courseList: courses
+      }));
+    }
+  };
+
   render() {
-    const courses = [
-      "GE",
-      "EAP",
-      "DB",
-      "ADB",
-      "DLM",
-      "ADLM",
-      "GC",
-      "GD",
-      "DI",
-      "ADT"
-    ];
+    const { college, allcourses } = this.props;
+    let { courseList } = this.state;
 
     return (
       <Container className="application">
         <br />
-        <h1>New Offer (Newton)</h1>
+        <h1>New Offer ({college})</h1>
         <br />
         <Form>
           <Form.Row>
@@ -67,30 +83,46 @@ class NewtonOffer extends Component {
             <Form.Control placeholder="Type in address here" />
           </Form.Group>
 
-          <Form.Row>
-            <Form.Group as={Col} controlId="formGridCourse">
-              <Form.Label>Course</Form.Label>
-              <Form.Control as="select">
-                {courses.map(c => (
-                  <option>{c}</option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formGridSart">
-              <Form.Label>Intake Date</Form.Label>
-              <Form.Control type="date" placeholder="Birthday" />
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formGridDuration">
-              <Form.Label>Duration</Form.Label>
-              <Form.Control type="number" placeholder="weeks" />
-            </Form.Group>
-          </Form.Row>
-
-          <Button variant="secondary" type="submit">
+          {/* add courses or delete courses */}
+          <Button
+            variant="success"
+            onClick={this.addCourse}
+            className="btn-space"
+          >
             Add Course
           </Button>
+          <Button
+            variant="success"
+            onClick={this.removeCourse}
+            className="btn-space"
+          >
+            Remove Course
+          </Button>
+
+          {courseList.map((val, idx) => {
+            return (
+              <Form.Row>
+                <Form.Group as={Col} controlId="formGridCourse">
+                  <Form.Label>Course</Form.Label>
+                  <Form.Control as="select">
+                    {allcourses.map(c => (
+                      <option>{c}</option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridSart">
+                  <Form.Label>Intake Date</Form.Label>
+                  <Form.Control type="date" placeholder="Birthday" />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridDuration">
+                  <Form.Label>Duration</Form.Label>
+                  <Form.Control type="number" placeholder="weeks" />
+                </Form.Group>
+              </Form.Row>
+            );
+          })}
 
           <Form.Row>
             <fieldset>
@@ -130,9 +162,11 @@ class NewtonOffer extends Component {
             Generate
           </Button>
         </Form>
+        <br />
+        <br />
       </Container>
     );
   }
 }
 
-export default NewtonOffer;
+export default NewOffer;

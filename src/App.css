@@ -12,3 +12,8 @@
 a:hover {
   text-decoration: none !important;
 }
+
+.btn-space {
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
