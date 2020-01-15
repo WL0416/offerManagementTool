@@ -88,6 +88,10 @@ class NewtonOffer extends Component {
             </Form.Group>
           </Form.Row>
 
+          <Button variant="secondary" type="submit">
+            Add Course
+          </Button>
+
           <Form.Row>
             <fieldset>
               <Form.Group as={Row}>

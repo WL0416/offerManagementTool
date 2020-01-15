@@ -3,23 +3,30 @@ import PropTypes from "prop-types";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = props => {
+  const { branding, weekday } = props;
+
   return (
-    <Navbar bg="dark" variant="dark">
-      <Navbar.Brand>
-        <span className="brand">OFFER MANAGEMENT TOOL</span>
-      </Navbar.Brand>
-      <Nav className="mr-auto">
-        <Nav.Link>
-          <Link to="/">HOME</Link>
-        </Nav.Link>
-        <Nav.Link>
-          <Link to="/newton">Newton</Link>
-        </Nav.Link>
-        <Nav.Link>
-          <Link to="/empire">Empire</Link>
-        </Nav.Link>
-      </Nav>
+    <Navbar bg="dark" variant="dark" justify-content-between>
+      <>
+        <Navbar.Brand>
+          <span className="brand">{branding}</span>
+        </Navbar.Brand>
+        <Nav className="mr-auto">
+          <Nav.Link>
+            <Link to="/">HOME</Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to="/newton">Newton</Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to="/empire">Empire</Link>
+          </Nav.Link>
+        </Nav>
+      </>
+      <>
+        <Navbar.Text>{weekday}</Navbar.Text>
+      </>
     </Navbar>
   );
 };

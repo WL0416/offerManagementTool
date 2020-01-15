@@ -9,9 +9,16 @@ class Provider extends Component {
 
   async componentDidMount() {
     const now = new Date();
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    };
+    const nowSerializer = now.toLocaleDateString(undefined, options);
 
     this.setState({
-      weekday: now
+      weekday: nowSerializer
     });
   }
 
