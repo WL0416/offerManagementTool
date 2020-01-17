@@ -6,9 +6,7 @@ import axios from "axios";
 class NewOffer extends Component {
   state = {
     // the list of courses which is used to dynamicly add
-    courseList: {
-      couse0: { name: "", intake: "", duration: "" }
-    },
+    courseList: [{ course0: "", intake0: "", duration0: "" }],
     first_name: "",
     last_name: "",
     birthday: "",
