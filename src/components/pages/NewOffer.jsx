@@ -51,9 +51,11 @@ class NewOffer extends Component {
         " " +
         this.state.email +
         " " +
-        // this.state.courseList[0]["course0"] +
-        // " " +
-        this.state.enrolfee
+        this.state.courseList[0].course0 +
+        " " +
+        this.state.enrolfee +
+        " " +
+        this.state.materialfee
     );
     event.preventDefault();
   };
@@ -64,6 +66,21 @@ class NewOffer extends Component {
 
     this.setState({
       [name]: value
+    });
+  };
+
+  handleCourseChange = (event, idx) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    console.log(name, value);
+
+    let courseList = this.state.courseList.slice();
+
+    courseList[idx].name = value;
+
+    this.setState({
+      courseList: courseList
     });
   };
 
@@ -192,8 +209,8 @@ class NewOffer extends Component {
                   <Form.Control
                     as="select"
                     name={courseId}
-                    onChange={this.handleChange}
-                    value={this.state.courseList[idx][courseId]}
+                    // onChange={this.handleCourseChange(idx)}
+                    value={this.state.courseList[idx].courseId}
                   >
                     {allcourses.map(c => (
                       <option value={c}>{c}</option>
@@ -210,7 +227,7 @@ class NewOffer extends Component {
                     type="date"
                     placeholder="Birthday"
                     name={intakeId}
-                    value={this.state.courseList[idx][intakeId]}
+                    value={this.state.courseList[idx].intakeId}
                     onChange={this.handleChange}
                   />
                 </Form.Group>
@@ -221,7 +238,7 @@ class NewOffer extends Component {
                     type="number"
                     placeholder="weeks"
                     name={durationId}
-                    value={this.state.courseList[idx][durationId]}
+                    value={this.state.courseList[idx].durationId}
                     onChange={this.handleChange}
                   />
                 </Form.Group>
@@ -246,7 +263,7 @@ class NewOffer extends Component {
               <Form.Control
                 type="text"
                 placeholder="$"
-                name="materalfee"
+                name="materialfee"
                 value={this.state.materialfee}
                 onChange={this.handleChange}
               />
