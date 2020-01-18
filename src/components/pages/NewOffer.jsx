@@ -212,6 +212,10 @@ class NewOffer extends Component {
                     // onChange={this.handleCourseChange(idx)}
                     value={this.state.courseList[idx].courseId}
                   >
+                    <option disabled selected value>
+                      {" "}
+                      -- select an option --{" "}
+                    </option>
                     {allcourses.map(c => (
                       <option value={c}>{c}</option>
                     ))}
