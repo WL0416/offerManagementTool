@@ -6,7 +6,7 @@ import axios from "axios";
 class NewOffer extends Component {
   state = {
     // the list of courses which is used to dynamicly add
-    courseList: [{ course0: "", intake0: "", duration0: "" }],
+    courseList: [{ course: "", intake: "", duration: "" }],
     first_name: "",
     last_name: "",
     birthday: "",
@@ -51,7 +51,7 @@ class NewOffer extends Component {
         " " +
         this.state.email +
         " " +
-        this.state.courseList[0].course0 +
+        this.state.courseList[0].course +
         " " +
         this.state.enrolfee +
         " " +
@@ -69,9 +69,11 @@ class NewOffer extends Component {
     });
   };
 
-  handleCourseChange = (event, idx) => {
+  handleCourseChange = event => {
     const name = event.target.name;
     const value = event.target.value;
+
+    const idx = parseInt(name.slice(6));
 
     console.log(name, value);
 
@@ -209,8 +211,8 @@ class NewOffer extends Component {
                   <Form.Control
                     as="select"
                     name={courseId}
-                    // onChange={this.handleCourseChange(idx)}
-                    value={this.state.courseList[idx].courseId}
+                    onChange={this.handleCourseChange}
+                    value={this.state.courseList[idx].course}
                   >
                     <option disabled selected value>
                       {" "}
@@ -231,7 +233,7 @@ class NewOffer extends Component {
                     type="date"
                     placeholder="Birthday"
                     name={intakeId}
-                    value={this.state.courseList[idx].intakeId}
+                    value={this.state.courseList[idx].intake}
                     onChange={this.handleChange}
                   />
                 </Form.Group>
@@ -242,7 +244,7 @@ class NewOffer extends Component {
                     type="number"
                     placeholder="weeks"
                     name={durationId}
-                    value={this.state.courseList[idx].durationId}
+                    value={this.state.courseList[idx].duration}
                     onChange={this.handleChange}
                   />
                 </Form.Group>
