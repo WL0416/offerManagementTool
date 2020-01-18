@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Container, Col, Form, Button } from "react-bootstrap";
 import "../../App.css";
-import axios from "axios";
+// import axios from "axios";
 
 class NewOffer extends Component {
   state = {
     // the list of courses which is used to dynamicly add
-    courseList: [{ name: "", intake: "", duration: "" }],
+    courseList: [{ name: "", intake: "", period: "" }],
     first_name: "",
     last_name: "",
     birthday: "",
@@ -18,16 +18,18 @@ class NewOffer extends Component {
     materialfee: ""
   };
 
+  constructor(props) {
+    super(props);
+    this.handleCourseChange = this.handleCourseChange.bind(this);
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
 
   addCourse = () => {
     this.setState(preState => ({
-      courseList: [
-        ...preState.courseList,
-        { name: "", intake: "", duration: "" }
-      ]
+      courseList: [...preState.courseList, { name: "", intake: "", period: "" }]
     }));
   };
 
@@ -76,13 +78,10 @@ class NewOffer extends Component {
 
     const idx = parseInt(id.slice(6));
 
-    console.log(name, value);
-
     let courseList = this.state.courseList.slice();
 
     courseList[idx][name] = value;
 
-    console.log(courseList[idx]);
     this.setState({
       courseList: courseList
     });
@@ -205,9 +204,7 @@ class NewOffer extends Component {
           {courseList.map((val, idx) => {
             let courseId = `course${idx}`,
               intakeId = `intake${idx}`,
-              durationId = `duration${idx}`;
-
-            console.log(val);
+              periodId = `period${idx}`;
             return (
               <Form.Row>
                 <Form.Group as={Col}>
@@ -243,8 +240,8 @@ class NewOffer extends Component {
                   <Form.Control
                     type="number"
                     placeholder="weeks"
-                    name="duration"
-                    id={durationId}
+                    name="period"
+                    id={periodId}
                     onChange={this.handleCourseChange}
                   />
                 </Form.Group>

@@ -5,8 +5,6 @@ import Header from "./components/layout/Header";
 import Provider, { Consumer } from "./context";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/pages/Home";
-// import NewtonOffer from "./components/pages/Newton";
-// import EmpireOffer from "./components/pages/Empire";
 import NewOffer from "./components/pages/NewOffer";
 
 class App extends Component {
