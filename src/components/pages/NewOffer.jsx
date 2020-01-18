@@ -6,7 +6,7 @@ import axios from "axios";
 class NewOffer extends Component {
   state = {
     // the list of courses which is used to dynamicly add
-    courseList: [{ course: "", intake: "", duration: "" }],
+    courseList: [{ name: "", intake: "", duration: "" }],
     first_name: "",
     last_name: "",
     birthday: "",
@@ -26,7 +26,7 @@ class NewOffer extends Component {
     this.setState(preState => ({
       courseList: [
         ...preState.courseList,
-        { course: "", intake: "", duration: "" }
+        { name: "", intake: "", duration: "" }
       ]
     }));
   };
@@ -72,15 +72,17 @@ class NewOffer extends Component {
   handleCourseChange = event => {
     const name = event.target.name;
     const value = event.target.value;
+    const id = event.target.id;
 
-    const idx = parseInt(name.slice(6));
+    const idx = parseInt(id.slice(6));
 
     console.log(name, value);
 
     let courseList = this.state.courseList.slice();
 
-    courseList[idx].name = value;
+    courseList[idx][name] = value;
 
+    console.log(courseList[idx]);
     this.setState({
       courseList: courseList
     });
@@ -144,7 +146,7 @@ class NewOffer extends Component {
                 placeholder="Passport Number"
                 name="passport"
                 value={this.state.passport}
-                onChnage={this.handleChange}
+                onChange={this.handleChange}
               />
             </Form.Group>
           </Form.Row>
@@ -157,7 +159,7 @@ class NewOffer extends Component {
                 placeholder="Phone Number"
                 name="phone"
                 value={this.state.passport}
-                onChnage={this.handleChange}
+                onChange={this.handleChange}
               />
             </Form.Group>
 
@@ -204,19 +206,20 @@ class NewOffer extends Component {
             let courseId = `course${idx}`,
               intakeId = `intake${idx}`,
               durationId = `duration${idx}`;
+
+            console.log(val);
             return (
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridCourse">
+                <Form.Group as={Col}>
                   <Form.Label>Course</Form.Label>
                   <Form.Control
                     as="select"
-                    name={courseId}
+                    name="name"
+                    id={courseId}
                     onChange={this.handleCourseChange}
-                    value={this.state.courseList[idx].course}
                   >
-                    <option disabled selected value>
-                      {" "}
-                      -- select an option --{" "}
+                    <option style={{ display: "none" }}>
+                      -- select an option --
                     </option>
                     {allcourses.map(c => (
                       <option value={c}>{c}</option>
@@ -224,28 +227,25 @@ class NewOffer extends Component {
                   </Form.Control>
                 </Form.Group>
 
-                <p>{courseId}</p>
-                <p>{val[intakeId]}</p>
-
-                <Form.Group as={Col} controlId="formGridSart">
+                <Form.Group as={Col}>
                   <Form.Label>Intake Date</Form.Label>
                   <Form.Control
                     type="date"
                     placeholder="Birthday"
-                    name={intakeId}
-                    value={this.state.courseList[idx].intake}
-                    onChange={this.handleChange}
+                    name="intake"
+                    id={intakeId}
+                    onChange={this.handleCourseChange}
                   />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId="formGridDuration">
+                <Form.Group as={Col}>
                   <Form.Label>Duration</Form.Label>
                   <Form.Control
                     type="number"
                     placeholder="weeks"
-                    name={durationId}
-                    value={this.state.courseList[idx].duration}
-                    onChange={this.handleChange}
+                    name="duration"
+                    id={durationId}
+                    onChange={this.handleCourseChange}
                   />
                 </Form.Group>
               </Form.Row>
