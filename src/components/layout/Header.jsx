@@ -7,21 +7,21 @@ const Header = props => {
   const { branding, weekday } = props;
 
   return (
-    <Navbar bg="dark" variant="dark" justify-content-between>
+    <Navbar bg="dark" variant="dark" justify-content-between="true">
       <>
         <Navbar.Brand>
           <span className="brand">{branding}</span>
         </Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link>
-            <Link to="/">HOME</Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to="/newton">Newton</Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to="/empire">Empire</Link>
-          </Nav.Link>
+          <Link to="/" className="nav-link">
+            HOME
+          </Link>
+          <Link to="/newton" className="nav-link">
+            Newton
+          </Link>
+          <Link to="/empire" className="nav-link">
+            Empire
+          </Link>
         </Nav>
       </>
       <>

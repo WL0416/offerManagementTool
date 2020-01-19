@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Col, Form, Button } from "react-bootstrap";
 import "../../App.css";
-// import axios from "axios";
+import axios from "axios";
 
 class NewOffer extends Component {
   state = {
@@ -21,6 +21,7 @@ class NewOffer extends Component {
   constructor(props) {
     super(props);
     this.handleCourseChange = this.handleCourseChange.bind(this);
+    this.getoffer = this.getoffer.bind(this);
   }
 
   componentDidMount() {
@@ -44,22 +45,29 @@ class NewOffer extends Component {
     }
   };
 
+  async getoffer() {
+    try {
+      const response = await axios.get("http://192.168.1.5:8000/offer/");
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  getOfferLetter() {
+    axios
+      .post("http://192.168.1.5:8000/generateoffer/", this.state)
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
   handleSubmit = event => {
-    alert(
-      "data was submitted " +
-        this.state.first_name +
-        " " +
-        this.state.last_name +
-        " " +
-        this.state.email +
-        " " +
-        this.state.courseList[0].course +
-        " " +
-        this.state.enrolfee +
-        " " +
-        this.state.materialfee
-    );
     event.preventDefault();
+    this.getOfferLetter();
   };
 
   handleChange = event => {
@@ -157,7 +165,7 @@ class NewOffer extends Component {
                 type="number"
                 placeholder="Phone Number"
                 name="phone"
-                value={this.state.passport}
+                value={this.state.phone}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -206,7 +214,7 @@ class NewOffer extends Component {
               intakeId = `intake${idx}`,
               periodId = `period${idx}`;
             return (
-              <Form.Row>
+              <Form.Row key={idx}>
                 <Form.Group as={Col}>
                   <Form.Label>Course</Form.Label>
                   <Form.Control
@@ -218,8 +226,10 @@ class NewOffer extends Component {
                     <option style={{ display: "none" }}>
                       -- select an option --
                     </option>
-                    {allcourses.map(c => (
-                      <option value={c}>{c}</option>
+                    {allcourses.map((c, idx) => (
+                      <option value={c} key={idx}>
+                        {c}
+                      </option>
                     ))}
                   </Form.Control>
                 </Form.Group>
