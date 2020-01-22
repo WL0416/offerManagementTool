@@ -15,7 +15,8 @@ class NewOffer extends Component {
     email: "",
     address: "",
     enrolfee: "",
-    materialfee: ""
+    materialfee: "",
+    campus: ""
   };
 
   constructor(props) {
@@ -47,7 +48,7 @@ class NewOffer extends Component {
 
   async getoffer() {
     try {
-      const response = await axios.get("http://192.168.1.5:8000/offer/");
+      const response = await axios.get("http://192.168.0.188:8000/offer/");
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -56,7 +57,7 @@ class NewOffer extends Component {
 
   getOfferLetter() {
     axios
-      .post("http://192.168.1.5:8000/generateoffer/", this.state)
+      .post("http://192.168.0.188:8000/generateoffer/", this.state)
       .then(function(response) {
         console.log(response);
       })
@@ -96,7 +97,7 @@ class NewOffer extends Component {
   };
 
   render() {
-    const { college, allcourses } = this.props;
+    const { college, allcourses, campus } = this.props;
     let { courseList } = this.state;
 
     let deleteDisable = true;
@@ -280,6 +281,24 @@ class NewOffer extends Component {
                 value={this.state.materialfee}
                 onChange={this.handleChange}
               />
+            </Form.Group>
+
+            <Form.Group as={Col}>
+              <Form.Label>Campus</Form.Label>
+              <Form.Control
+                as="select"
+                name="campus"
+                onChange={this.handleChange}
+              >
+                <option style={{ display: "none" }}>
+                  -- select an option --
+                </option>
+                {campus.map((c, idx) => (
+                  <option value={c} key={idx}>
+                    {c}
+                  </option>
+                ))}
+              </Form.Control>
             </Form.Group>
           </Form.Row>
 

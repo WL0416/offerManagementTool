@@ -24,6 +24,10 @@ class App extends Component {
 
     const EmpireCourses = ["GE", "EAP", "DLM", "ADLM"];
 
+    const NewtonCampus = ["MELBOURNE", "BRISBANE"];
+
+    const EmpireCampus = ["MELBOURNE"];
+
     return (
       <Provider>
         <Consumer>
@@ -39,14 +43,22 @@ class App extends Component {
                       exact
                       path="/newton"
                       component={() => (
-                        <NewOffer college="Newton" allcourses={NewtonCourses} />
+                        <NewOffer
+                          college="Newton"
+                          allcourses={NewtonCourses}
+                          campus={NewtonCampus}
+                        />
                       )}
                     />
                     <Route
                       exact
                       path="/empire"
                       component={() => (
-                        <NewOffer college="Empire" allcourses={EmpireCourses} />
+                        <NewOffer
+                          college="Empire"
+                          allcourses={EmpireCourses}
+                          campus={EmpireCampus}
+                        />
                       )}
                     />
                   </Switch>
