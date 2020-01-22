@@ -55,8 +55,8 @@ class NewOffer extends Component {
     }
   }
 
-  getOfferLetter() {
-    axios
+  async getOfferLetter() {
+    await axios
       .post("http://192.168.0.188:8000/generateoffer/", this.state)
       .then(function(response) {
         console.log(response);
