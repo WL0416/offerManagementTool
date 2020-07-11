@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Header = props => {
+const Header = (props) => {
   const { branding, weekday } = props;
 
   return (
@@ -16,11 +16,8 @@ const Header = props => {
           <Link to="/" className="nav-link">
             HOME
           </Link>
-          <Link to="/newton" className="nav-link">
-            Newton
-          </Link>
-          <Link to="/empire" className="nav-link">
-            Empire
+          <Link to="/" className="nav-link">
+            Help
           </Link>
         </Nav>
       </>
@@ -32,11 +29,11 @@ const Header = props => {
 };
 
 Header.defaultProps = {
-  branding: "Offer Management Tool"
+  branding: "Offer Management Tool",
 };
 
 Header.propTypes = {
-  branding: PropTypes.string.isRequired
+  branding: PropTypes.string.isRequired,
 };
 
 export default Header;
